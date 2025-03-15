@@ -1,0 +1,44 @@
+{% set name = "dj-easy-pdf" %}
+{% set version = "0.4.7" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/dj-easy-pdf-{{ version }}.tar.gz
+  sha256: 7a276eacb2351118e451d577791b3fba6df8fe5478ec7052cf76998976554744
+
+build:
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - django >=3.2
+    - xhtml2pdf >=0.2
+    - reportlab >=3
+    - requests
+
+test:
+  imports:
+    - easy_pdf
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/WilliamOtieno/dj-easy-pdf
+  summary: Django PDF views, easily convert html responses to pdf responses
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - gb119
